@@ -9,8 +9,8 @@
     "build:service": "cd ./service && yarn install && yarn build && sh dockerbuild.sh",
     "start": "yarn start:database && yarn start:service",
     "start:database": "cd ./database && sh dockerrun.sh",
-    "start:workder": "cd ./database && sh dockerrun.sh",
-    "start:service": "cd ./database && sh dockerrun.sh"
+    "start:workder": "cd ./workder && sh dockerrun.sh",
+    "start:service": "cd ./service && sh dockerrun.sh"
   },
   "repository": {
     "type": "git"
