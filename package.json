@@ -1,0 +1,21 @@
+{
+  "name": "dockerimages",
+  "version": "0.0.1",
+  "description": "This is an all in one project.",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn build:worker && yarn build:service",
+    "build:worker": "cd ./worker && yarn install && sh dockerbuild.sh",
+    "build:service": "cd ./service && yarn install && yarn build && sh dockerbuild.sh",
+    "start": "yarn start:database && yarn start:service",
+    "start:database": "cd ./database && sh dockerrun.sh",
+    "start:workder": "cd ./database && sh dockerrun.sh",
+    "start:service": "cd ./database && sh dockerrun.sh"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "Chris Wei",
+  "devDependencies": {
+  }
+}
