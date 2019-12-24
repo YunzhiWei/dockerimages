@@ -8,5 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris Wei",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.20.4",
+    "pg": "^7.15.1"
+  }
 }
