@@ -1,4 +1,4 @@
-FROM node:11.10.1-alpine
+FROM node:12.14.0-alpine
 
 ADD ./ /
 WORKDIR /
