@@ -1,7 +1,7 @@
 const libKnex = require('knex')({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
+    host : 'dbpg',
     database : 'docker',
     user : 'docker',
     password : '123456',
