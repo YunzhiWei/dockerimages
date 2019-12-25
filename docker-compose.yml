@@ -9,8 +9,8 @@ services:
     environment:
       - POSTGRES_PASSWORD=123456
     volumes:
-      - "$PWD"/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      - "$PWD"/data:/var/lib/postgresql/data 
+      - "./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - "./database/data:/var/lib/postgresql/data"
 
   service:
     image: 'chriswei/simpleservice'
