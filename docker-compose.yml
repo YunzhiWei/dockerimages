@@ -1,0 +1,34 @@
+version: '2'
+services:
+  dbpg:
+    image: 'postgres:alpine'
+    networks:
+      - bridgenet
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=123456
+    volumes:
+      - "$PWD"/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - "$PWD"/data:/var/lib/postgresql/data 
+
+  service:
+    image: 'chriswei/simpleservice'
+    networks: 
+      - bridgenet
+    ports:
+      - '3000:3000'
+    depends_on:
+      - dbpg
+
+  proxy:
+    image: 'chriswei/simpleproxy'
+    networks: 
+      - bridgenet
+    ports:
+      - '8000:80'
+    depends_on:
+      - service
+      
+networks:
+  bridgenet:
