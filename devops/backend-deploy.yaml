@@ -1,0 +1,33 @@
+# backend-deploy.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-dp
+  labels:
+    app: serviceapi
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviceapi
+    matchExpressions:
+      - {key: tier, operator: In, values: [backend]}
+  template:
+    metadata:
+      name: serviceapi-pod
+      labels:
+        app: serviceapi
+        tier: backend
+    spec:
+      containers:
+      - name: serviceapi-container
+        image: chriswei/simpleservice
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          hostPort: 3000
+          protocol: TCP

@@ -1,7 +1,7 @@
 version: '2'
 services:
   dbpg:
-    image: 'postgres:alpine'
+    image: 'postgres:12.1-alpine'
     networks:
       - bridgenet
     ports:
@@ -22,7 +22,7 @@ services:
       - dbpg
 
   proxy:
-    image: 'chriswei/simpleproxy'
+    image: 'chriswei/simpleproxy:0.0.1'
     networks: 
       - bridgenet
     ports:

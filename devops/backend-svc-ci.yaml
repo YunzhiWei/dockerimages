@@ -1,0 +1,20 @@
+# backend-svc-ci.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: service
+  labels:
+    app: serviceapi
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: serviceapi
+      tier: backend
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000

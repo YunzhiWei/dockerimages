@@ -1,0 +1,20 @@
+# dbpg-svc-ci.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbpg
+  labels:
+    app: postgres
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+      tier: database
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432

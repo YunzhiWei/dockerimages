@@ -1,0 +1,33 @@
+# frontend-deploy.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-dp
+  labels:
+    app: simpleproxy
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simpleproxy
+    matchExpressions:
+      - {key: tier, operator: In, values: [frontend]}
+  template:
+    metadata:
+      name: simpleproxy-pod
+      labels:
+        app: simpleproxy
+        tier: frontend
+    spec:
+      containers:
+      - name: simpleproxy-container
+        image: chriswei/simpleproxy:0.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          hostPort: 80
+          protocol: TCP

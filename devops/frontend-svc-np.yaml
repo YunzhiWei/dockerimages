@@ -1,0 +1,20 @@
+# frontend-svc-np.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc-np
+  labels:
+    app: simpleproxy
+    tier: frontend
+spec:
+  selector:
+    app: simpleproxy
+    tier: frontend
+  type: NodePort
+  ports:
+    - nodePort: 80
+      port: 80
+      targetPort: 80

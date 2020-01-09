@@ -1,0 +1,35 @@
+# dbpg-pod.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dbpg-pod
+  labels:
+    app: postgres
+    tier: database
+spec:
+  containers:
+  - name: pg-container
+    image: postgres:12.1-alpine
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: POSTGRES_PASSWORD
+      value: "123456"
+    ports:
+    - containerPort: 5432
+      hostPort: 5432
+      protocol: TCP
+    volumeMounts:
+    - name: initdb
+      mountPath: "/docker-entrypoint-initdb.d"
+    - name: data
+      mountPath: "/var/lib/postgresql/data"
+  volumes:
+  - name: initdb
+    hostPath:
+      path: "/root/projects/dockerimages/database/docker-entrypoint-initdb.d"
+  - name: data
+    hostPath:   
+      path: "/root/projects/dockerimages/database/data"
