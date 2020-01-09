@@ -11,9 +11,8 @@ metadata:
     tier: backend
 spec:
   selector:
-    matchLabels:
-      app: serviceapi
-      tier: backend
+    app: serviceapi
+    tier: backend
   type: ClusterIP
   ports:
     - port: 3000

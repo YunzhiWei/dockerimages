@@ -11,9 +11,8 @@ metadata:
     tier: database
 spec:
   selector:
-    matchLabels:
-      app: postgres
-      tier: database
+    app: postgres
+    tier: database
   type: ClusterIP
   ports:
     - port: 5432
