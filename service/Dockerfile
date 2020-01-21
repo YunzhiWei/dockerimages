@@ -1,4 +1,4 @@
-FROM node:12.14.0-alpine
+FROM node:12.14.1-alpine
 
 ADD ./node_modules /node_modules
 ADD ./dist /dist
