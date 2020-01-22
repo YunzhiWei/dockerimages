@@ -1,0 +1,51 @@
+# !!! Please make sure the target folder in Worker Node exists !!!
+
+# ------------------- Deployment ------------------- #
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-dp
+  labels:
+    app: serviceapi
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviceapi
+    matchExpressions:
+      - {key: tier, operator: In, values: [backend]}
+  template:
+    metadata:
+      name: serviceapi-pod
+      labels:
+        app: serviceapi
+        tier: backend
+    spec:
+      containers:
+      - name: serviceapi-container
+        image: chriswei/simpleservice
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          hostPort: 3000
+          protocol: TCP
+
+# ------------------- ClusterIP Service ------------------- #
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service
+  labels:
+    app: serviceapi
+    tier: backend
+spec:
+  selector:
+    app: serviceapi
+    tier: backend
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000

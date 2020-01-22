@@ -1,7 +1,7 @@
-# frontend-deploy.yaml
-#
 # !!! Please make sure the target folder in Worker Node exists !!!
-#
+
+# ------------------- Deployment ------------------- #
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40,3 +40,23 @@ spec:
         - containerPort: 80
           hostPort: 80
           protocol: TCP
+
+# ------------------- NodePort Service ------------------- #
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc-np
+  labels:
+    app: simpleproxy
+    tier: frontend
+spec:
+  selector:
+    app: simpleproxy
+    tier: frontend
+  type: NodePort
+  ports:
+    - nodePort: 30880
+      port: 80
+      targetPort: 80
