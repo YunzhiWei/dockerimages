@@ -1,0 +1,19 @@
+# frontend-svc-ci.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+  labels:
+    app: simpleproxy
+    tier: frontend
+spec:
+  selector:
+    app: simpleproxy
+    tier: frontend
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80

@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource
+spec:
+  rules:
+  - host: static.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-demo-dp
+          servicePort: 80
+  - host: api.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-demo-dp
+          servicePort: 80

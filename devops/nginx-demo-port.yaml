@@ -1,0 +1,42 @@
+
+#----------- nginx-demo.yaml ----------------#
+# http://<node-ip>
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-demo-dp
+  labels:
+    app: nginx-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-demo
+  template:
+    metadata:
+      name: nginx-demo-pod
+      labels:
+        app: nginx-demo
+    spec:
+      volumes:
+      - name: webdata
+        emptyDir: {}
+      initContainers:
+      - name: web-content-init
+        image: busybox
+        volumeMounts:
+        - name: webdata
+          mountPath: "/webdata"
+        command: ["/bin/sh", "-c", 'echo "<h1>I am <font color=blue>Nginx Demo with Port</font></h1>" > /webdata/index.html']
+      containers:
+      - name: nginx-demo-container
+        image: nginx:1.17.6-alpine
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          hostPort: 80
+          protocol: TCP
+        volumeMounts:
+        - name: webdata
+          mountPath: "/usr/share/nginx/html"

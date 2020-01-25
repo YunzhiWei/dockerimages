@@ -1,0 +1,74 @@
+
+#----------- deployment ----------------#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-demo-dp
+  labels:
+    app: ingress-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingress-demo
+  template:
+    metadata:
+      name: ingress-demo-pod
+      labels:
+        app: ingress-demo
+    spec:
+      volumes:
+      - name: webdata
+        emptyDir: {}
+      initContainers:
+      - name: web-content-init
+        image: busybox
+        volumeMounts:
+        - name: webdata
+          mountPath: "/webdata"
+        command: ["/bin/sh", "-c", 'echo "<h1>I am <font color=red>Ingress all-in-one</font></h1>" > /webdata/index.html']
+      containers:
+      - name: ingress-demo-container
+        image: nginx:1.17.6-alpine
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: webdata
+          mountPath: "/usr/share/nginx/html"
+
+#---------- clusterIP service ----------#
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-demo-svc-ci
+  labels:
+    app: ingress-demo
+spec:
+  selector:
+    app: ingress-demo
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+
+#----------- Ingress Resource -------------#
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource
+spec:
+  rules:
+  - host: static.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: ingress-demo-svc-ci
+          servicePort: 80
+  - host: api.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: ingress-demo-svc-ci
+          servicePort: 80
