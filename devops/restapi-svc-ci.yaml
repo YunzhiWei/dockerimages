@@ -7,11 +7,11 @@ kind: Service
 metadata:
   name: service
   labels:
-    app: serviceapi
+    app: restapi
     tier: backend
 spec:
   selector:
-    app: serviceapi
+    app: restapi
     tier: backend
   type: ClusterIP
   ports:

@@ -5,26 +5,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-dp
+  name: restapi-dp
   labels:
-    app: serviceapi
+    app: restapi
     tier: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: serviceapi
+      app: restapi
     matchExpressions:
       - {key: tier, operator: In, values: [backend]}
   template:
     metadata:
-      name: serviceapi-pod
+      name: restapi-pod
       labels:
-        app: serviceapi
+        app: restapi
         tier: backend
     spec:
       containers:
-      - name: serviceapi-container
+      - name: restapi-container
         image: chriswei/simpleservice
         imagePullPolicy: IfNotPresent
         ports:
@@ -39,11 +39,11 @@ kind: Service
 metadata:
   name: service
   labels:
-    app: serviceapi
+    app: restapi
     tier: backend
 spec:
   selector:
-    app: serviceapi
+    app: restapi
     tier: backend
   type: ClusterIP
   ports:

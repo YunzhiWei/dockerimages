@@ -1,31 +1,31 @@
-# backend-deploy.yaml
+# restapi-deploy.yaml
 #
 # !!! Please make sure the target folder in Worker Node exists !!!
 #
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-dp
+  name: restapi-dp
   labels:
-    app: serviceapi
+    app: nestjs
     tier: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: serviceapi
+      app: restapi
     matchExpressions:
       - {key: tier, operator: In, values: [backend]}
   template:
     metadata:
-      name: serviceapi-pod
+      name: restapi-pod
       labels:
-        app: serviceapi
+        app: restapi
         tier: backend
     spec:
       containers:
-      - name: serviceapi-container
-        image: chriswei/simpleservice
+      - name: restapi-container
+        image: chriswei/restapi
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000

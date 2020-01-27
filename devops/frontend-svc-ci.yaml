@@ -7,11 +7,11 @@ kind: Service
 metadata:
   name: frontend-svc
   labels:
-    app: simpleproxy
+    app: frontend
     tier: frontend
 spec:
   selector:
-    app: simpleproxy
+    app: frontend
     tier: frontend
   type: ClusterIP
   ports:

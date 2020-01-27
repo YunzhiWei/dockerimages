@@ -12,8 +12,8 @@ services:
       - "./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
       - "./database/data:/var/lib/postgresql/data"
 
-  service:
-    image: 'chriswei/simpleservice'
+  restapi:
+    image: 'chriswei/restapi'
     networks: 
       - bridgenet
     ports:
@@ -21,8 +21,8 @@ services:
     depends_on:
       - dbpg
 
-  proxy:
-    image: 'chriswei/simpleproxy:0.0.1'
+  frontend:
+    image: 'chriswei/frontend:0.0.1'
     networks: 
       - bridgenet
     ports:
