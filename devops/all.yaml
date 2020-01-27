@@ -1,0 +1,188 @@
+# !!! Please make sure the target folder in Worker Node exists !!!
+
+# ------------------- Deployment ------------------- #
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbpg-dp
+  labels:
+    app: postgres
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+    matchExpressions:
+      - {key: tier, operator: In, values: [backend]}
+  template:
+    metadata:
+      name: dbpg-pod
+      labels:
+        app: postgres
+        tier: backend
+    spec:
+      containers:
+      - name: dbpg-container
+        image: postgres:12.1-alpine
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "123456"
+        ports:
+        - containerPort: 5432
+          hostPort: 5432
+          protocol: TCP
+        volumeMounts:
+        - name: initdb
+          mountPath: "/docker-entrypoint-initdb.d"
+        - name: data
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: initdb
+        hostPath:
+          path: "/root/projects/dockerimages/database/docker-entrypoint-initdb.d"
+      - name: data
+        hostPath:   
+          path: "/root/projects/dockerimages/database/data"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapi-dp
+  labels:
+    app: restapi
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restapi
+    matchExpressions:
+      - {key: tier, operator: In, values: [backend]}
+  template:
+    metadata:
+      name: restapi-pod
+      labels:
+        app: restapi
+        tier: backend
+    spec:
+      containers:
+      - name: restapi-container
+        image: chriswei/restapi
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          hostPort: 3000
+          protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-dp
+  labels:
+    app: frontend
+    tier: frontend
+  annotations:
+    kubernetes.io/change-cause: "Release Version 0.0.1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+    matchExpressions:
+      - {key: tier, operator: In, values: [frontend]}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  minReadySeconds: 3
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      name: frontend-pod
+      labels:
+        app: frontend
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend-container
+        image: chriswei/frontend:0.0.1
+        imagePullPolicy: IfNotPresent
+
+# ------------------- Service ------------------- #
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbpg
+  labels:
+    app: postgres
+    tier: backend
+spec:
+  selector:
+    app: postgres
+    tier: backend
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restapi
+  labels:
+    app: restapi
+    tier: backend
+spec:
+  selector:
+    app: restapi
+    tier: backend
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    tier: frontend
+spec:
+  selector:
+    app: frontend
+    tier: frontend
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+
+# ------------------- Ingress Resource ------------------- #
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource
+spec:
+  rules:
+  - host: static.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: frontend
+          servicePort: 80
+  - host: api.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: frontend
+          servicePort: 80
