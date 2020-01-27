@@ -4,18 +4,18 @@
   "description": "This is an all in one project.",
   "main": "index.js",
   "scripts": {
-    "build": "yarn build:proxy && yarn build:worker && yarn build:service",
-    "build:proxy": "cd ./webproxy && sh dockerbuild.sh",
+    "build": "yarn build:frontend && yarn build:worker && yarn build:service",
+    "build:frontend": "cd ./frontend && sh dockerbuild.sh",
     "build:worker": "cd ./worker && yarn install && sh dockerbuild.sh",
     "build:service": "cd ./service && yarn install && yarn build && sh dockerbuild.sh",
     "start": "yarn start:compose",
     "start:compose": "docker-compose up -d",
-    "start:dockers": "yarn start:network && yarn start:database && yarn start:service && yarn start:proxy",
+    "start:dockers": "yarn start:network && yarn start:database && yarn start:service && yarn start:frontend",
     "start:network": "cd ./network && sh dockerrun.sh",
     "start:database": "cd ./database && sh dockerrun.sh",
     "start:worker": "cd ./worker && sh dockerrun.sh",
     "start:service": "cd ./service && sh dockerrun.sh",
-    "start:proxy": "cd ./webproxy && sh dockerrun.sh"
+    "start:frontend": "cd ./frontend && sh dockerrun.sh"
   },
   "repository": {
     "type": "git"
