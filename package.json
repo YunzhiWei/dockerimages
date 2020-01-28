@@ -4,7 +4,8 @@
   "description": "This is an all in one project.",
   "main": "index.js",
   "scripts": {
-    "build": "yarn build:frontend && yarn build:worker && yarn build:service",
+    "build": "yarn build:spa && yarn build:frontend && yarn build:worker && yarn build:service",
+    "build:spa": "cd ./frontend/spa && yarn install && yarn build",
     "build:frontend": "cd ./frontend && sh dockerbuild.sh",
     "build:worker": "cd ./worker && yarn install && sh dockerbuild.sh",
     "build:service": "cd ./service && yarn install && yarn build && sh dockerbuild.sh",
