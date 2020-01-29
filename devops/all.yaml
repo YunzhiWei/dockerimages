@@ -55,6 +55,8 @@ metadata:
   labels:
     app: restapi
     tier: backend
+  annotations:
+    kubernetes.io/change-cause: "Release Version 0.0.1"
 spec:
   replicas: 1
   selector:
@@ -71,7 +73,7 @@ spec:
     spec:
       containers:
       - name: restapi-container
-        image: chriswei/restapi
+        image: chriswei/restapi:0.0.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
@@ -181,6 +183,12 @@ spec:
           serviceName: frontend
           servicePort: 80
   - host: api.office.com
+    http:
+      paths:
+      - backend:
+          serviceName: frontend
+          servicePort: 80
+  - host: www.office.com
     http:
       paths:
       - backend:
