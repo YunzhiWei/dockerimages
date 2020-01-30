@@ -1,0 +1,7 @@
+psql -v ON_ERROR_STOP=1 --username postgres <<-EOSQL
+    DROP DATABASE IF EXISTS docker;
+    DROP USER IF EXISTS docker;
+    CREATE USER docker LOGIN PASSWORD '123456';
+    CREATE DATABASE docker;
+    GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
+EOSQL

@@ -2,6 +2,32 @@
 
 This is a repo to learn docker with some simple projects
 
+# Todo
+
+## Problem Solving
+
+|Module|Function|Feture|Action|
+|---|---|---|---|
+|DevOps|HA|Multi cluster nodes|System cannot work properly in `k8s-worker-2`|
+
+## Feature & Function
+
+|Module|Function|Feture|Action|
+|---|---|---|---|
+|DevOps|CI/CD|Github Actions|Implement|
+|Database|Initial|Create Tables Structure|Implement|
+|DevOps|Initial Container|used by database initial|Implement|
+|DevOps|Job & Cron-job|used by database backup|Implement|
+|DevOps|Persistent Volume|used by database initial|Implement|
+|DevOps|Secret|used by database|Implement|
+|DevOps|ConfigMap|used by Frontend|Implement|
+|DevOps|Namespace|used by project|Implement|
+|DevOps|Node Selector|used by database|Implement|
+|DevOps|Rename Nodes|used by admin|Implement|
+|DevOps|K8S Logs|EFK|Implement|
+|DevOps|Monitering|Promethesus & Grafana|Implement|
+|DevOps|Private Docker Registry|Aliyun|Implement|
+
 # Architecture
 
 ## System
@@ -46,15 +72,6 @@ This is a repo to learn docker with some simple projects
 - nginx:1.17.6-alpine
 - traefik:v1.7
 - kubernetesui/dashboard:v2.0.0-rc2
-
-# Todo
-
-|Module|Function|Feture|Action|
-|---|---|---|---|
-|DevOps|Upgrade|Version Control|Version number|
-|DevOps|HA|Multi cluster nodes|Test|
-|Database|Initial|Create Tables Structure|Implement|
-|DevOps|Secret|used by database|Implement|
 
 # Release Notes
 
