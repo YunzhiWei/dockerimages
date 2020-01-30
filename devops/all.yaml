@@ -38,7 +38,7 @@ spec:
         - name: initdb
           mountPath: "/docker-entrypoint-initdb.d"
         - name: script
-          mountPath: "/var/lib/postgresql/script"
+          mountPath: "/script"
         - name: data
           mountPath: "/var/lib/postgresql/data"
       volumes:

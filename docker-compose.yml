@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=123456
     volumes:
       - "./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-      - "./database/script:/var/lib/postgresql/script"
+      - "./database/script:/script"
       - "./database/data:/var/lib/postgresql/data"
 
   restapi:
