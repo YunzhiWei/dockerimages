@@ -12,3 +12,7 @@
 
 \i maindata.entity.sql;
 \i contents.entity.sql;
+
+\! echo === seeds === --------
+
+\i seeds.sql;
