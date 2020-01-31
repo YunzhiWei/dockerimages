@@ -15,11 +15,8 @@ This is a repo to learn docker with some simple projects
 |Module|Function|Feture|Action|
 |---|---|---|---|
 |DevOps|CI/CD|Github Actions|Implement|
-|Database|Initial|Create Tables Structure|Implement|
 |DevOps|Initial Container|used by database initial|Implement|
-|DevOps|Job & Cron-job|used by database backup|Implement|
 |DevOps|Persistent Volume|used by database initial|Implement|
-|DevOps|Secret|used by database|Implement|
 |DevOps|ConfigMap|used by Frontend|Implement|
 |DevOps|Namespace|used by project|Implement|
 |DevOps|Node Selector|used by database|Implement|

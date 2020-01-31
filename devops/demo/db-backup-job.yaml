@@ -1,0 +1,33 @@
+# db-backup-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-backup-job
+spec:
+  template:
+    metadata:
+      name: db-backup-job-pod
+    spec:
+      restartPolicy: Never
+      volumes:
+      - name: backup
+        hostPath:   
+          path: "/root/projects/dockerimages/database/backup"
+      containers:
+      - name: db-backup-job-container
+        image: postgres:12.1-alpine
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: backup
+          mountPath: "/backup"
+        env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: all-secret
+              key: password_db
+        # command: ["sleep", "600"]
+        command:
+        - "bin/bash"
+        - "-c"
+        - "/backup/backup.sh"

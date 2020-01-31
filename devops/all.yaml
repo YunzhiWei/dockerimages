@@ -1,5 +1,15 @@
 # !!! Please make sure the target folder in Worker Node exists !!!
 
+# ------------------- Secret ----------------------- #
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: all-secret
+type: Opaque
+data:
+  password_db: MTIzNDU2
+
 # ------------------- Deployment ------------------- #
 ---
 apiVersion: apps/v1
@@ -199,3 +209,41 @@ spec:
       - backend:
           serviceName: frontend
           servicePort: 80
+
+# ------------------- Cron Job ------------------- #
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: db-backup-cron
+spec:
+#  schedule: "* * * * *"
+  schedule: "0 */2 * * *"
+  suspend: false
+  concurrencyPolicty: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          volumes:
+          - name: backup
+            hostPath:
+              path: "/root/projects/dockerimages/database/backup"
+          containers:
+          - name: db-backup-job-container
+            image: postgres:12.1-alpine
+            imagePullPolicy: IfNotPresent
+            command: ["bin/bash", "/backup/backup.sh"]
+            volumeMounts:
+            - name: backup
+              mountPath: "/backup"
+            env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: all-secret
+                  key: password_db
