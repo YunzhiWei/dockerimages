@@ -6,10 +6,10 @@ kind: CronJob
 metadata:
   name: db-backup-cron
 spec:
-#  schedule: "* * * * *"
-  schedule: "0 */2 * * *"
+#  schedule: "0 */2 * * *"
+  schedule: "* * * * *"
   suspend: false
-  concurrencyPolicty: Forbid
+  concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:

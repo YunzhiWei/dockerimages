@@ -14,6 +14,8 @@ This is a repo to learn docker with some simple projects
 
 |Module|Function|Feture|Action|
 |---|---|---|---|
+|Frontend|Router|HomePage|Test|
+|Frontend|Fetch|Restful API|Test connection through service name|
 |DevOps|CI/CD|Github Actions|Implement|
 |DevOps|Initial Container|used by database initial|Implement|
 |DevOps|Persistent Volume|used by database initial|Implement|
