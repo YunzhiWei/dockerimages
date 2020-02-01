@@ -2,17 +2,20 @@
 -- UTF-8 encoding
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
--- \i ecset.sql;
 
-\! echo === clear_all === --------
+\! echo === encodeing set ===
+\i ecset.sql;
 
+\! echo === clear_all ===
 \i clear_all.sql;
 
-\! echo === tables === --------
-
+\! echo === tables ===
 \i maindata.entity.sql;
 \i contents.entity.sql;
 
-\! echo === seeds === --------
-
+\! echo === seeds ===
 \i seeds.sql;
+
+\! echo === encodeing reset ===
+\i ecreset.sql;
+

@@ -86,7 +86,20 @@ This is a repo to learn docker with some simple projects
 
 ### Persistent Storage
 
-# Demo
+
+# Start to User
+
+## Check-List
+
+### Development Environment
+
+- Set local host file
+- Set environment variables
+- Create database
+
+### Production Environment
+
+- Set up URL DNS
 
 ## Docker Compose Mode
 

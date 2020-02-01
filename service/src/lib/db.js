@@ -1,10 +1,4 @@
-const libKnex = require('knex')({
-  client: 'pg',
-  connection: {
-    host : 'dbpg',
-    database : 'docker',
-    user : 'docker',
-    password : '123456',
-  }
-});
-exports.libKnex = libKnex;
+const KNEX_CONNECTION = require('../config').KNEX_CONNECTION;
+const libKnex = require('knex')(KNEX_CONNECTION);
+
+exports.dbConnection = libKnex;

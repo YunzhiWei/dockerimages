@@ -8,7 +8,8 @@ metadata:
   name: all-secret
 type: Opaque
 data:
-  password_db: MTIzNDU2
+  password_db_access: MTIzNDU2
+  password_db_backup: MTIzNDU2
 
 # ------------------- Deployment ------------------- #
 ---
@@ -39,7 +40,10 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: POSTGRES_PASSWORD
-          value: "123456"
+          valueFrom:
+            secretKeyRef:
+              name: all-secret
+              key: password_db_access
         ports:
         - containerPort: 5432
           hostPort: 5432
@@ -94,6 +98,12 @@ spec:
         - containerPort: 3000
           hostPort: 3000
           protocol: TCP
+        env:
+        - name: PASSWORD_DB_ACCESS
+          valueFrom:
+            secretKeyRef:
+              name: all-secret
+              key: password_db_access
 
 ---
 apiVersion: apps/v1
@@ -246,4 +256,4 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: all-secret
-                  key: password_db
+                  key: password_db_backup
