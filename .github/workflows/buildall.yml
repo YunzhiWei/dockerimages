@@ -12,14 +12,27 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - name: 1. Checkout code
+    - name: 1. Checkout code ...
       uses: actions/checkout@v2
-    - name: 2. Setup Node.js ${{ matrix.node-version }}
+
+    - name: 2. Setup Node.js ${{ matrix.node-version }} ...
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - name: 3. Build ...
-      run: 
+      run:
         npm run build --if-present
       env:
         CI: true
+    
+    - name: 4. Upload Images ...
+      env:
+        REG_USERNAME: ${{ secret.REG_ALI_ACCOUNT }}
+        REG_PASSWORD: ${{ secret.REG_ALI_PASSWORD }}
+      run:
+        docker login -u ${REG_USERNAME} -p ${REG_PASSWORD} registry.cn-hangzhou.aliyuncs.com
+        docker tag chriswei/restapi:0.0.1 registry.cn-hangzhou.aliyuncs.com/weready/restapi:0.0.1
+        docker push registry.cn-hangzhou.aliyuncs.com/weready/restapi:0.0.1
+        docker logout registry.cn-hangzhou.aliyuncs.com
+      
