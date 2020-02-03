@@ -30,7 +30,7 @@ jobs:
       env:
         REG_USERNAME: ${{ secrets.REG_ALI_ACCOUNT }}
         REG_PASSWORD: ${{ secrets.REG_ALI_PASSWORD }}
-      run:
+      run: |
         docker login -u ${REG_USERNAME} -p ${REG_PASSWORD} registry.cn-hangzhou.aliyuncs.com
         docker tag chriswei/restapi:0.0.1 registry.cn-hangzhou.aliyuncs.com/weready/restapi:0.0.1
         docker push registry.cn-hangzhou.aliyuncs.com/weready/restapi:0.0.1
