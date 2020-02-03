@@ -1,0 +1,25 @@
+name: Build All
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: 1. Checkout code
+      uses: actions/checkout@v2
+    - name: 2. Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: 3. Build ...
+      run: 
+        npm run build --if-present
+      env:
+        CI: true
