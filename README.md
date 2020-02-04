@@ -135,9 +135,12 @@ docker network ls
 ### Clean Up
 
 ```
+yarn stop:compose
+```
+or
+```
 docker stop dockerimages_frontend_1 dockerimages_restapi_1 dockerimages_dbpg_1
 docker rm dockerimages_frontend_1 dockerimages_restapi_1 dockerimages_dbpg_1
-
 docker network rm dockerimages_bridgenet
 ```
 
@@ -155,6 +158,10 @@ kubectl create -f all.yaml
 
 ### Clean Up
 
+```
+yarn stop:cluster
+```
+or
 ```
 kubectl delete -f all.yaml
 ```
