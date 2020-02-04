@@ -9,9 +9,9 @@ services:
     environment:
       - POSTGRES_PASSWORD=123456
     volumes:
-      - "./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-      - "./database/script:/script"
-      - "./database/data:/var/lib/postgresql/data"
+      - "../database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - "../database/script:/script"
+      - "../database/data:/var/lib/postgresql/data"
 
   restapi:
     image: 'chriswei/restapi:0.0.1'
