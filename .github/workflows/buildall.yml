@@ -39,3 +39,10 @@ jobs:
         docker push registry.cn-hangzhou.aliyuncs.com/weready/restapi:0.0.1
         docker logout registry.cn-hangzhou.aliyuncs.com
       
+#    - name: x. Checkout source code ...
+#      env:
+#        REPO_TARGET: github.com/Clare-Huang/Athena.git
+#        GIT_ACCOUNT_TOKEN: ${{ secrets.GIT_ACCOUNT_TOKEN }}
+#      run: |
+#        git clone https://${GIT_ACCOUNT_TOKEN}@${REPO_TARGET}
+#        cd xxxxxx
