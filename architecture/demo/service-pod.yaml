@@ -1,0 +1,23 @@
+# service-pod.yaml
+#
+# !!! Please make sure the target folder in Worker Node exists !!!
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: service-pod
+  labels:
+    app: service
+    tier: backend
+spec:
+  containers:
+  - name: service-container
+    image: registry.cn-hangzhou.aliyuncs.com/archellis/service:0.0.1
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: POSTGRES_PASSWORD
+      value: "123456"
+    ports:
+    - containerPort: 3000
+      hostPort: 3000
+      protocol: TCP
