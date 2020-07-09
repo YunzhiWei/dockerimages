@@ -32,6 +32,9 @@ spec:
         - name: http
           containerPort: 80
           hostPort: 80
+        - name: https
+          containerPort: 443
+          hostPort: 443
         - name: admin
           containerPort: 8080
           hostPort: 8080
@@ -45,6 +48,11 @@ spec:
         - --api
         - --kubernetes
         - --logLevel=INFO
+#        - --insecureskipverify=true
+        - --defaultentrypoints=http,https
+        - --entrypoints=Name:https Address::443 TLS
+        - --entrypoints=Name:http Address::80
+
 ---
 kind: Service
 apiVersion: v1
@@ -58,6 +66,9 @@ spec:
     - protocol: TCP
       port: 80
       name: web
+    - protocol: TCP
+      port: 443
+      name: https
     - protocol: TCP
       port: 8080
       name: admin
