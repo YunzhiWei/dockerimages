@@ -22,7 +22,7 @@
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
-    "knex": "^0.20.4",
+    "knex": "^2.4.0",
     "pg": "^7.15.1",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
