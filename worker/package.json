@@ -10,7 +10,7 @@
   "author": "Chris Wei",
   "license": "ISC",
   "dependencies": {
-    "knex": "^0.20.4",
+    "knex": "^2.4.0",
     "pg": "^7.15.1"
   }
 }
